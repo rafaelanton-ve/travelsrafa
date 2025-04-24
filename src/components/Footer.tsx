@@ -2,6 +2,7 @@ import React from 'react';
 import { Facebook, Twitter, Instagram, Mail, Phone, MapPin, Plane } from 'lucide-react';
 import { Container } from './ui/Container';
 import { Link } from './ui/Link';
+import { Logo } from './ui/Logo';
 
 const Footer: React.FC = () => {
   return (
@@ -12,7 +13,7 @@ const Footer: React.FC = () => {
           <div>
             <div className="flex items-center mb-4">
               <Plane className="text-blue-400 mr-2" size={24} />
-              <span className="font-bold text-xl">RafaTravels</span>
+              <Logo className="text-xl" />
             </div>
             <p className="text-gray-400 mb-6">
               Discover the world with our expertly curated travel experiences. 
@@ -86,7 +87,7 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">
-          <p>&copy; {new Date().getFullYear()} RafaTravels. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} <Logo />. All rights reserved.</p>
         </div>
       </Container>
     </footer>

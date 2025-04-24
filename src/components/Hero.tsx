@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Search, MapPin, Calendar, Users } from 'lucide-react';
 import { Button } from './ui/Button';
+import { Logo } from './ui/Logo';
 
 const Hero: React.FC = () => {
   const [destination, setDestination] = useState('');
@@ -23,7 +24,7 @@ const Hero: React.FC = () => {
       <div className="relative h-full flex flex-col justify-center items-center text-white px-4 pt-16 md:pt-20 pb-[20px] md:pb-[40px]">
         <div className="text-center max-w-4xl mx-auto mt-8 md:mt-0">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-fade-in">
-            Explore The World With <span className="text-blue-400">RafaTravels</span>
+            Explore The World With <span className="text-blue-400"><Logo /></span>
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-gray-200 animate-fade-in-delayed">
             Discover amazing destinations and create unforgettable memories with our expertly crafted travel experiences

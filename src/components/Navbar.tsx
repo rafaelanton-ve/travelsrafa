@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Plane } from 'lucide-react';
 import { Link } from './ui/Link';
+import { Logo } from './ui/Logo';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,9 +26,7 @@ const Navbar: React.FC = () => {
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <Plane className={`${isScrolled ? 'text-blue-600' : 'text-white'} mr-2`} size={28} />
-            <span className={`font-bold text-xl ${isScrolled ? 'text-blue-600' : 'text-white'}`}>
-              RafaTravels
-            </span>
+            <Logo className={`text-xl ${isScrolled ? 'text-blue-600' : 'text-white'}`} />
           </div>
 
           {/* Desktop Navigation */}
