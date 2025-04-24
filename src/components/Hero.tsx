@@ -62,7 +62,7 @@ const Hero: React.FC = () => {
                   name="destination"
                   value={searchParams.destination}
                   onChange={handleChange}
-                  className="w-full pl-10 pr-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full pl-10 pr-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                   placeholder="Where do you want to go?"
                 />
               </div>
@@ -77,7 +77,7 @@ const Hero: React.FC = () => {
                   name="dates"
                   value={searchParams.dates}
                   onChange={handleChange}
-                  className="w-full pl-10 pr-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full pl-10 pr-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                   placeholder="When are you traveling?"
                 />
               </div>
@@ -92,7 +92,7 @@ const Hero: React.FC = () => {
                   name="travelers"
                   value={searchParams.travelers}
                   onChange={handleChange}
-                  className="w-full pl-10 pr-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full pl-10 pr-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                   placeholder="How many people?"
                 />
               </div>
