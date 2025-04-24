@@ -4,7 +4,7 @@ export const destinations: Destination[] = [
   {
     id: 1,
     name: 'Santorini, Greece',
-    image: '/src/assets/images/destinations/santorini.jpg',
+    image: './assets/images/destinations/santorini.jpg',
     location: 'Greece',
     rating: 4.8,
     price: 899,
@@ -13,7 +13,7 @@ export const destinations: Destination[] = [
   {
     id: 2,
     name: 'Bali, Indonesia',
-    image: '/src/assets/images/destinations/bali.jpg',
+    image: './assets/images/destinations/bali.jpg',
     location: 'Indonesia',
     rating: 4.7,
     price: 799,
@@ -22,7 +22,7 @@ export const destinations: Destination[] = [
   {
     id: 3,
     name: 'Kyoto, Japan',
-    image: '/src/assets/images/destinations/kyoto.jpg',
+    image: './assets/images/destinations/kyoto.jpg',
     location: 'Japan',
     rating: 4.9,
     price: 1099,
@@ -31,7 +31,7 @@ export const destinations: Destination[] = [
   {
     id: 4,
     name: 'Machu Picchu, Peru',
-    image: '/src/assets/images/destinations/machupichu.jpg',
+    image: './assets/images/destinations/machupichu.jpg',
     location: 'Peru',
     rating: 4.9,
     price: 1299,
@@ -40,7 +40,7 @@ export const destinations: Destination[] = [
   {
     id: 5,
     name: 'Amalfi Coast, Italy',
-    image: '/src/assets/images/destinations/amalficoast.jpg',
+    image: './assets/images/destinations/amalficoast.jpg',
     location: 'Italy',
     rating: 4.8,
     price: 999,
@@ -49,7 +49,7 @@ export const destinations: Destination[] = [
   {
     id: 6,
     name: 'Maldives',
-    image: '/src/assets/images/destinations/maldives.jpg',
+    image: './assets/images/destinations/maldives.jpg',
     location: 'Maldives',
     rating: 4.9,
     price: 1499,

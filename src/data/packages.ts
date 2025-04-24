@@ -4,7 +4,7 @@ export const travelPackages: TravelPackage[] = [
   {
     id: 1,
     name: 'European Adventure',
-    image: '/src/assets/images/destinations/amalficoast.jpg',
+    image: './assets/images/destinations/amalficoast.jpg',
     duration: 10,
     location: 'Multiple Countries',
     startDate: 'Jun 15, 2025',
@@ -21,7 +21,7 @@ export const travelPackages: TravelPackage[] = [
   {
     id: 2,
     name: 'Thai Island Hopping',
-    image: '/src/assets/images/destinations/bali.jpg',
+    image: './assets/images/destinations/bali.jpg',
     duration: 7,
     location: 'Thailand',
     startDate: 'Jul 10, 2025',
@@ -38,7 +38,7 @@ export const travelPackages: TravelPackage[] = [
   {
     id: 3,
     name: 'Japan Discovery',
-    image: '/src/assets/images/destinations/kyoto.jpg',
+    image: './assets/images/destinations/kyoto.jpg',
     duration: 12,
     location: 'Japan',
     startDate: 'Sep 5, 2025',
