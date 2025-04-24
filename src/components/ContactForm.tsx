@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container } from './ui/Container';
 import { SectionTitle } from './ui/SectionTitle';
-import { MapPin, Phone, Mail, Send } from 'lucide-react';
+import { MapPin, Phone, Mail, Send, Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
 import { Button } from './ui/Button';
 
 export const ContactForm: React.FC = () => {
@@ -23,6 +23,13 @@ export const ContactForm: React.FC = () => {
     // Here you would normally send the data to your backend
     setIsSubmitted(true);
   };
+
+  const socialIcons = [
+    { name: 'facebook', icon: Facebook },
+    { name: 'twitter', icon: Twitter },
+    { name: 'instagram', icon: Instagram },
+    { name: 'youtube', icon: Youtube }
+  ];
 
   return (
     <section className="py-20 bg-white" id="contact">
@@ -73,14 +80,14 @@ export const ContactForm: React.FC = () => {
             <div className="mt-8">
               <h4 className="font-semibold text-gray-900 mb-3">Follow Us</h4>
               <div className="flex space-x-4">
-                {['facebook', 'twitter', 'instagram', 'youtube'].map((social) => (
+                {socialIcons.map(({ name, icon: Icon }) => (
                   <a 
-                    key={social}
-                    href={`#${social}`}
+                    key={name}
+                    href={`#${name}`}
                     className="bg-white rounded-full w-10 h-10 flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-colors"
                   >
-                    <span className="sr-only">{social}</span>
-                    <i className={`fa fa-${social}`}></i>
+                    <span className="sr-only">{name}</span>
+                    <Icon size={20} />
                   </a>
                 ))}
               </div>
