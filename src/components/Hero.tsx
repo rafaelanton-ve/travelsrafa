@@ -2,11 +2,30 @@ import React, { useState } from 'react';
 import { Search, MapPin, Calendar, Users } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Logo } from './ui/Logo';
+import { SearchResults } from './SearchResults';
+import { searchService } from '../services/searchService';
+import { SearchParams, SearchResult } from '../types/search';
 
 const Hero: React.FC = () => {
-  const [destination, setDestination] = useState('');
-  const [dates, setDates] = useState('');
-  const [travelers, setTravelers] = useState('');
+  const [searchParams, setSearchParams] = useState<SearchParams>({
+    destination: '',
+    dates: '',
+    travelers: ''
+  });
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [showResults, setShowResults] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setSearchParams(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const results = searchService.search(searchParams);
+    setSearchResults(results);
+    setShowResults(true);
+  };
 
   return (
     <div className="relative h-screen">
@@ -32,7 +51,7 @@ const Hero: React.FC = () => {
         </div>
 
         {/* Search Form */}
-        <div className="w-full max-w-4xl bg-white rounded-lg shadow-xl p-4 md:p-6 mt-8 animate-slide-up">
+        <form onSubmit={handleSearch} className="w-full max-w-4xl bg-white rounded-lg shadow-xl p-4 md:p-6 mt-8 animate-slide-up">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="relative">
               <label className="block text-gray-700 text-sm font-medium mb-2">Destination</label>
@@ -40,10 +59,11 @@ const Hero: React.FC = () => {
                 <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
                 <input
                   type="text"
+                  name="destination"
+                  value={searchParams.destination}
+                  onChange={handleChange}
                   className="w-full pl-10 pr-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Where do you want to go?"
-                  value={destination}
-                  onChange={(e) => setDestination(e.target.value)}
                 />
               </div>
             </div>
@@ -54,10 +74,11 @@ const Hero: React.FC = () => {
                 <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
                 <input
                   type="text"
+                  name="dates"
+                  value={searchParams.dates}
+                  onChange={handleChange}
                   className="w-full pl-10 pr-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="When are you traveling?"
-                  value={dates}
-                  onChange={(e) => setDates(e.target.value)}
                 />
               </div>
             </div>
@@ -68,10 +89,11 @@ const Hero: React.FC = () => {
                 <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
                 <input
                   type="text"
+                  name="travelers"
+                  value={searchParams.travelers}
+                  onChange={handleChange}
                   className="w-full pl-10 pr-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="How many people?"
-                  value={travelers}
-                  onChange={(e) => setTravelers(e.target.value)}
                 />
               </div>
             </div>
@@ -79,6 +101,7 @@ const Hero: React.FC = () => {
           
           <div className="mt-6 text-center">
             <Button
+              type="submit"
               variant="primary"
               size="lg"
               className="w-full md:w-auto"
@@ -87,8 +110,16 @@ const Hero: React.FC = () => {
               Search Trips
             </Button>
           </div>
-        </div>
+        </form>
       </div>
+
+      {/* Search Results Modal */}
+      {showResults && (
+        <SearchResults
+          results={searchResults}
+          onClose={() => setShowResults(false)}
+        />
+      )}
     </div>
   );
 };
