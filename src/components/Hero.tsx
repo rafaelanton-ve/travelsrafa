@@ -33,7 +33,7 @@ const Hero: React.FC = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
         style={{ 
-          backgroundImage: "url('https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg?auto=compress&cs=tinysrgb&w=1920')",
+          backgroundImage: "url('./assets/images/hero/background.jpg')",
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/70" />
