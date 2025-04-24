@@ -20,7 +20,7 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Content */}
-      <div className="relative h-full flex flex-col justify-center items-center text-white px-4 pt-20">
+      <div className="relative h-full flex flex-col justify-center items-center text-white px-4 pt-20 pb-[40px]">
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-fade-in">
             Explore The World With <span className="text-blue-400">RafaTravels</span>
