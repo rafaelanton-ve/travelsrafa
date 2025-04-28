@@ -73,12 +73,12 @@ const Hero: React.FC = () => {
               <div className="relative">
                 <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
                 <input
-                  type="text"
+                  type="date"
                   name="dates"
                   value={searchParams.dates}
                   onChange={handleChange}
+                  min={new Date().toISOString().split('T')[0]}
                   className="w-full pl-10 pr-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
-                  placeholder="When are you traveling?"
                 />
               </div>
             </div>
@@ -88,7 +88,9 @@ const Hero: React.FC = () => {
               <div className="relative">
                 <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
                 <input
-                  type="text"
+                  type="number"
+                  min="1"
+                  max="20"
                   name="travelers"
                   value={searchParams.travelers}
                   onChange={handleChange}
