@@ -11,4 +11,6 @@ export interface SearchResult {
   price: number;
   image: string;
   description: string;
+  availableDates: string[];
+  maxTravelers: number;
 } 

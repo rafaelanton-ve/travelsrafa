@@ -6,6 +6,8 @@ export interface Destination {
   rating: number;
   price: number;
   description: string;
+  availableDates: string[];
+  maxTravelers: number;
 }
 
 export interface TravelPackage {
