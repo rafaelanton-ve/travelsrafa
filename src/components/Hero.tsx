@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, MapPin, Calendar, Users } from 'lucide-react';
+import { Search, MapPin, Calendar, Users, Loader2 } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Logo } from './ui/Logo';
 import { SearchResults } from './SearchResults';
@@ -14,25 +14,33 @@ const Hero: React.FC = () => {
   });
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [showResults, setShowResults] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setSearchParams(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
-    const results = searchService.search(searchParams);
-    setSearchResults(results);
-    setShowResults(true);
+    setIsSearching(true);
+    try {
+      const results = await searchService.search(searchParams);
+      setSearchResults(results);
+      setShowResults(true);
+    } catch (error) {
+      console.error("Search failed", error);
+    } finally {
+      setIsSearching(false);
+    }
   };
 
   return (
     <div className="relative h-screen">
       {/* Background Image with Overlay */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
-        style={{ 
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
           backgroundImage: "url('https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg?auto=compress&cs=tinysrgb&w=1920')",
         }}
       >
@@ -67,7 +75,7 @@ const Hero: React.FC = () => {
                 />
               </div>
             </div>
-            
+
             <div className="relative">
               <label className="block text-gray-700 text-sm font-medium mb-2">Dates</label>
               <div className="relative">
@@ -82,7 +90,7 @@ const Hero: React.FC = () => {
                 />
               </div>
             </div>
-            
+
             <div className="relative">
               <label className="block text-gray-700 text-sm font-medium mb-2">Travelers</label>
               <div className="relative">
@@ -100,16 +108,17 @@ const Hero: React.FC = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="mt-6 text-center">
             <Button
               type="submit"
               variant="primary"
               size="lg"
               className="w-full md:w-auto"
+              disabled={isSearching}
             >
-              <Search className="mr-2" size={18} />
-              Search Trips
+              {isSearching ? <Loader2 className="mr-2 animate-spin" size={18} /> : <Search className="mr-2" size={18} />}
+              {isSearching ? 'Searching...' : 'Search Trips'}
             </Button>
           </div>
         </form>

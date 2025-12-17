@@ -1,49 +1,50 @@
 import { SearchParams, SearchResult } from '../types/search';
-import { destinations } from '../data/destinations';
-import { travelPackages } from '../data/packages';
+import { supabase } from '../lib/supabase';
 
 export const searchService = {
-  search: (params: SearchParams): SearchResult[] => {
-    // Convertir el destino a minúsculas para búsqueda case-insensitive
-    const searchDestination = params.destination.toLowerCase();
+  search: async (params: SearchParams): Promise<SearchResult[]> => {
+    let query = supabase.from('destinations').select('*');
 
-    // Combinar destinos y paquetes para la búsqueda
-    const allResults = [
-      ...destinations.map(dest => ({
-        id: dest.id,
-        name: dest.name,
-        location: dest.location,
-        price: dest.price,
-        image: dest.image,
-        description: dest.description,
-        availableDates: dest.availableDates || [],
-        maxTravelers: dest.maxTravelers || 10
-      })),
-      ...travelPackages.map(pkg => ({
-        id: pkg.id,
-        name: pkg.name,
-        location: pkg.location,
-        price: pkg.price,
-        image: pkg.image,
-        description: pkg.features.join(' '),
-        availableDates: pkg.availableDates || [],
-        maxTravelers: pkg.maxTravelers || 10
-      }))
-    ];
+    // Case-insensitive search on title or location
+    if (params.destination) {
+      const term = params.destination;
+      // Use .or() with filters for title and location
+      query = query.or(`title.ilike.%${term}%,location.ilike.%${term}%`);
+    }
 
-    // Filtrar resultados basados en los parámetros de búsqueda
-    return allResults.filter(result => {
-      const matchesDestination = searchDestination === '' || 
-        result.name.toLowerCase().includes(searchDestination) ||
-        result.location.toLowerCase().includes(searchDestination);
+    // Date filtering: check if the available_dates array contains the selected date
+    if (params.dates) {
+      query = query.contains('available_dates', [params.dates]);
+    }
 
-      const matchesDates = params.dates === '' || 
-        result.availableDates.includes(params.dates);
+    // Travelers filtering: check if max_travelers is greater than or equal to requested
+    if (params.travelers) {
+      query = query.gte('max_travelers', Number(params.travelers));
+    }
 
-      const matchesTravelers = params.travelers === '' || 
-        Number(params.travelers) <= result.maxTravelers;
+    try {
+      const { data, error } = await query;
 
-      return matchesDestination && matchesDates && matchesTravelers;
-    });
+      if (error) {
+        console.error('Search error:', error);
+        return [];
+      }
+
+      if (!data) return [];
+
+      return data.map((item: any) => ({
+        id: item.id,
+        name: item.title,
+        location: item.location,
+        price: Number(item.price),
+        image: item.image_url,
+        description: item.description || '',
+        availableDates: item.available_dates || [],
+        maxTravelers: item.max_travelers || 0
+      }));
+    } catch (e) {
+      console.error('Search exception:', e);
+      return [];
+    }
   }
-}; 
+};
