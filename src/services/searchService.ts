@@ -3,21 +3,30 @@ import { supabase } from '../lib/supabase';
 
 export const searchService = {
   search: async (params: SearchParams): Promise<SearchResult[]> => {
-    let query = supabase.from('destinations').select('*').eq('active', true);
+    let query;
+
+    // Use calendar table for accurate date availability if a date is selected
+    if (params.dates) {
+      // !inner join ensures we only get destinations that have this date in calendar
+      query = supabase.from('destinations')
+        .select('*, calendar!inner(*)')
+        .eq('active', true)
+        .eq('calendar.date', params.dates)
+        .eq('calendar.status', 'active');
+    } else {
+      // If no date selected, just get active destinations
+      query = supabase.from('destinations')
+        .select('*')
+        .eq('active', true);
+    }
 
     // Case-insensitive search on title or location
     if (params.destination) {
       const term = params.destination;
-      // Use .or() with filters for title and location
       query = query.or(`title.ilike.%${term}%,location.ilike.%${term}%`);
     }
 
-    // Date filtering: check if the available_dates array contains the selected date
-    if (params.dates) {
-      query = query.contains('available_dates', [params.dates]);
-    }
-
-    // Travelers filtering: check if max_travelers is greater than or equal to requested
+    // Travelers filtering
     if (params.travelers) {
       query = query.gte('max_travelers', Number(params.travelers));
     }
