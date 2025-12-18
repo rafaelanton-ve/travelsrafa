@@ -3,7 +3,7 @@ import { supabase } from '../lib/supabase';
 
 export const searchService = {
   search: async (params: SearchParams): Promise<SearchResult[]> => {
-    let query = supabase.from('destinations').select('*');
+    let query = supabase.from('destinations').select('*').eq('active', true);
 
     // Case-insensitive search on title or location
     if (params.destination) {

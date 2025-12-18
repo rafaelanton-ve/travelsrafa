@@ -2,6 +2,7 @@ import React from 'react';
 import { Container } from './ui/Container';
 import { SectionTitle } from './ui/SectionTitle';
 import { ArrowRight, Loader2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { DestinationCard } from './DestinationCard';
 import { useDestinations } from '../hooks/useDestinations';
 
@@ -42,21 +43,21 @@ export const FeaturedDestinations: React.FC = () => {
               key={destination.id}
               destination={destination}
               className={`transform transition duration-500 ease-in-out hover:-translate-y-2 ${index % 3 === 0 ? 'animate-fade-in' :
-                  index % 3 === 1 ? 'animate-fade-in-delayed' :
-                    'animate-fade-in-more-delayed'
+                index % 3 === 1 ? 'animate-fade-in-delayed' :
+                  'animate-fade-in-more-delayed'
                 }`}
             />
           ))}
         </div>
 
         <div className="text-center mt-12">
-          <a
-            href="#view-all"
+          <Link
+            to="/destinations"
             className="inline-flex items-center text-blue-600 font-medium hover:text-blue-800 transition-colors"
           >
             View All Destinations
             <ArrowRight className="ml-2" size={18} />
-          </a>
+          </Link>
         </div>
       </Container>
     </section>

@@ -23,7 +23,8 @@ export const useDestinations = (): UseDestinationsResult => {
                 setLoading(true);
                 const { data, error: supabaseError } = await supabase
                     .from('destinations')
-                    .select('*');
+                    .select('*')
+                    .eq('active', true);
 
                 if (supabaseError) {
                     throw new Error(supabaseError.message);
